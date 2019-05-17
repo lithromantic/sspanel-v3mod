@@ -13,7 +13,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">充值</h1>
+				<h1 class="content-heading" style="color:red;font-size:50px;">充值系统维护中！</h1>
 
 
 			</div>
@@ -27,7 +27,7 @@
                             <div class="card-main">
                                 <div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">注意!</p>
+										<p class="card-heading" style="color:red;font-size:25px;">注意!充值系统维护中！</p>
 										<p>充值完成后需刷新网页以查看余额，通常一分钟内到账。</p>
 										{if $config["enable_admin_contact"] == 'true'}
 											<p class="card-heading">如果没有到账请立刻联系站长：</p>
@@ -198,98 +198,53 @@
 
 <script>
 	$(document).ready(function () {
-		$("#code-update").click(function () {
-			$.ajax({
-				type: "POST",
-				url: "code",
-				dataType: "json",
-				data: {
-					code: $("#code").val()
-				},
-				success: function (data) {
-					if (data.ret) {
-						$("#result").modal();
-						$("#msg").html(data.msg);
-						window.setTimeout("location.href=window.location.href", {$config['jump_delay']});
-					} else {
-						$("#result").modal();
-						$("#msg").html(data.msg);
-						window.setTimeout("location.href=window.location.href", {$config['jump_delay']});
-					}
-				},
-				error: function (jqXHR) {
-					$("#result").modal();
-					$("#msg").html("发生错误：" + jqXHR.status);
-				}
-			})
-		})
-
-	$("#urlChange").click(function () {
-			$.ajax({
-				type: "GET",
-				url: "code/f2fpay",
-				dataType: "json",
-				data: {
-					time: timestamp
-				},
-				success: function (data) {
-					if (data.ret) {
-						$("#readytopay").modal();
-					}
-				}
-
-			})
-		});
-
-		$("#readytopay").on('shown.bs.modal', function () {
-			$.ajax({
-				type: "POST",
-				url: "code/f2fpay",
-				dataType: "json",
-				data: {
-						amount: $("#type").val()
-					},
-				success: function (data) {
-					$("#readytopay").modal('hide');
-					if (data.ret) {
-						$("#qrcode").html(data.qrcode);
-						$("#info").html("您的订单金额为："+data.amount+"元。");
-						$("#alipay").modal();
-					} else {
-						$("#result").modal();
-						$("#msg").html(data.msg);
-					}
-				},
-				error: function (jqXHR) {
-					$("#readytopay").modal('hide');
-					$("#result").modal();
-					$("#msg").html(data.msg+"  发生了错误。");
-				}
-			})
-		});
-	timestamp = {time()};
-
-
-	function f(){
-		$.ajax({
-			type: "GET",
-			url: "code_check",
-			dataType: "json",
-			data: {
-				time: timestamp
-			},
-			success: function (data) {
-				if (data.ret) {
-					clearTimeout(tid);
-					$("#alipay").modal('hide');
-					$("#result").modal();
-					$("#msg").html("充值成功！");
-					window.setTimeout("location.href=window.location.href", {$config['jump_delay']});
-				}
-			}
-		});
-		tid = setTimeout(f, 1000); //循环调用触发setTimeout
-	}
-	setTimeout(f, 1000);
+        $("#code-update").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "code",
+                dataType: "json",
+                data: {
+                    code: $("#code").val()
+                },
+                success: function (data) {
+                    if (data.ret) {
+                        $("#result").modal();
+                        $("#msg").html(data.msg);
+                        window.setTimeout("location.href=window.location.href", {$config['jump_delay']});
+                    } else {
+                        $("#result").modal();
+                        $("#msg").html(data.msg);
+                        window.setTimeout("location.href=window.location.href", {$config['jump_delay']});
+                    }
+                },
+                error: function (jqXHR) {
+                    $("#result").modal();
+                    $("#msg").html("发生错误：" + jqXHR.status);
+                }
+            })
+        })
+          
+      
+      function f(){
+        $.ajax({
+            type: "GET",
+            url: "code_check",
+            dataType: "json",
+            data: {
+                time: timestamp
+            },
+            success: function (data) {
+                if (data.ret) {
+                    clearTimeout(tid);
+                    $("#alipay").modal('hide');
+                    $("#result").modal();
+                    $("#msg").html("充值成功！");
+                    window.setTimeout("location.href=window.location.href", {$config['jump_delay']});
+                }
+            }
+        });
+        tid = setTimeout(f, 1000); //循环调用触发setTimeout
+    }
+    setTimeout(f, 1000);
 })
 </script>

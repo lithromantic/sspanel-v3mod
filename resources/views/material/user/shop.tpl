@@ -35,6 +35,7 @@
 						{$shops->render()}
 						<table class="table ">
                             <tr>
+							    <th>ID</th>
                                 <th>套餐</th>
 								<th>价格</th>
 								<th>套餐详情</th>
@@ -43,6 +44,7 @@
                             </tr>
                             {foreach $shops as $shop}
                             <tr>
+							    <td>#{$shop->id}</td>
                                 <td>{$shop->name}</td>
 								<td>{$shop->price} 元</td>
                                 <td>{$shop->content()}</td>

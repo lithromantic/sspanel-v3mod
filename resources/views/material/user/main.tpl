@@ -408,9 +408,11 @@
 								<a href="/user/lookingglass">
 									<i class="icon icon-lg">visibility</i>&nbsp;延迟检测
 								</a>
+								<!-- 这是一段注释
 								<a href="/user/announcement">
 									<i class="icon icon-lg">start</i>&nbsp;使用教程
 								</a>
+								-->
 							</li>
 						</ul>
 

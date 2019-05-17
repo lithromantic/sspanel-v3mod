@@ -184,9 +184,14 @@ class Shop extends Model
                         $user->expire_in=date("Y-m-d H:i:s", strtotime($user->expire_in)+$value*86400);
                     }
                     break;
-                case "class":
+                 case "class":
+               //     $user->class=$value;
+               //     $user->class_expire=date("Y-m-d H:i:s", time()+$content["class_expire"]*86400);
+                if ($user->class==0||$user->class!=$value) {	
+                        $user->class_expire=date("Y-m-d H:i:s", time());	
+                    }	
+                    $user->class_expire=date("Y-m-d H:i:s", strtotime($user->class_expire)+$content["class_expire"]*86400);
                     $user->class=$value;
-                    $user->class_expire=date("Y-m-d H:i:s", time()+$content["class_expire"]*86400);
                     break;
                 case "speedlimit":
                     $user->node_speedlimit=$value;

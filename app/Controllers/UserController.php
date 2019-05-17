@@ -1292,6 +1292,12 @@ class UserController extends BaseController
 
         $price=$shop->price*((100-$credit)/100);
         $user=$this->user;
+      /* 添加流量包提示*/
+      	if ($user->class == 0 && $shop->id == 7) {
+         	 $res['ret'] = 0;
+             $res['msg'] = "此流量包仅限Lv0以上用户购买，请选购其他套餐";
+                return $response->getBody()->write(json_encode($res));
+        }
 
         if ($user->money<$price) {
             $res['ret'] = 0;
